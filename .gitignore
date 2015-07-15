@@ -1,0 +1,5 @@
+composer.phar
+phing-latest.phar
+composer.lock
+vendor/
+.idea/

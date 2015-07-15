@@ -1,0 +1,8 @@
+{% for job in jobs %}
+    {% if job.hasError is not empty %}
+    "{{ job.attachmentName }}":
+        {% for e in job.getErrors %}
+            {{ e }}
+        {% endfor %}
+    {% endif %}
+{% endfor %}

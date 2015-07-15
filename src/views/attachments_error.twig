@@ -1,0 +1,6 @@
+{% for attachment in attachmentsError %}
+    "{{ attachmentsError.attachmentName }}":
+    {% for e in attachmentsError.getErrors %}
+        {{ e }}
+    {% endfor %}
+{% endfor %}

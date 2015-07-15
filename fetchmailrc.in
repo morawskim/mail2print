@@ -1,0 +1,31 @@
+#turn on daemon mode. Checking for mail every 600s
+set daemon 600
+
+#Do   error  logging  through  sys‐log(3).
+#set syslog
+#set no syslog
+
+#Name of a file to append error and status messages to.
+set logfile /var/log/fetchmail
+
+#schemat poll serwerImapLubPop3 protocol IMAP|POP3
+poll imap.gmail.com protocol IMAP
+  #change "localUnixAccountName"!!!
+  user username@gmail.com is localUnixAccountName here
+  password "secretpassword"
+
+  #keep mails on server
+  keep
+
+  #required secure connection
+  ssl
+
+  #check SSL certifications
+  sslcertck
+
+  #This option lets fetchmail use a Message or Local Delivery Agent (MDA or LDA) directly, rather than forward via SMTP or LMTP.
+  #CHANGE PATHS!!!
+  mda "/usr/local/bin/mail2print.phar mail2print:run -f /etc/mail2print.ini"
+
+  #Limit  the  number  of messages accepted from a given server in a single poll.  By default there is no limit.
+  #fetchlimit

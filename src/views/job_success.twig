@@ -1,0 +1,5 @@
+{% for job in jobs %}
+    {% if job.hasError is empty %}
+    "{{ job.attachmentName }}" added to print queue.
+    {% endif %}
+{% endfor %}

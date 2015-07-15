@@ -1,0 +1,25 @@
+{
+  "name": "Morawskim/mail2print",
+  "description": "Print all received attachments from email message.",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marcin Morawski",
+      "email": "marcin@morawskim.pl"
+    }
+  ],
+
+  "require": {
+    "symfony/console": "v2.6.9",
+    "zendframework/zend-mail": "2.5.1",
+    "twig/twig": "1.6.5",
+    "zendframework/zend-config": "2.5.1"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "mail2print\\": "src/"
+    }
+  }
+}

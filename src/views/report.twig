@@ -1,0 +1,12 @@
+{% extends "layout.twig" %}
+
+{% block report %}
+Jobs successfull add to print queue:
+{% include 'job_success.twig' %}
+
+Are there some errors?
+{% include 'attachments_error.twig' %}
+{% include 'jobs_error.twig' %}
+
+{% endblock %}
+
