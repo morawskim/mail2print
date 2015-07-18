@@ -68,6 +68,5 @@ You may need these PHP extensions:
 
 TODO
 ===========================
-* Logging
 * Unit test
 * new filters (white and blacklist email address)

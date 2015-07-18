@@ -4,6 +4,7 @@ namespace mail2print\Models;
 
 
 
+use mail2print\Exceptions\RuntimeException;
 use Zend\Mail\Storage\Message;
 use Zend\Mail\Storage\Part;
 
@@ -18,14 +19,14 @@ class Mail
         $length = 2048;
         $handler = fopen('php://stdin', 'r');
         if (false === $handler) {
-            throw new \RuntimeException(sprintf("Can't open stdin stream"));
+            throw new RuntimeException(sprintf("Can't open stdin stream"));
         }
 
         while (!feof($handler)) {
             $content .= fread($handler, $length);
             $readed += $length;
             if ($readed > self::MAX_MAIL_SIZE) {
-                throw new \RuntimeException(sprintf('Max mail size excessive.'));
+                throw new RuntimeException(sprintf('Max mail size excessive.'));
             }
         }
 
