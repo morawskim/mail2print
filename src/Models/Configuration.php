@@ -3,6 +3,9 @@
 namespace mail2print\Models;
 
 
+use mail2print\Exceptions\InvalidArgumentException;
+use mail2print\Exceptions\RuntimeException;
+use Zend\Config\Exception\ExceptionInterface;
 use Zend\Config\Reader\Ini;
 
 class Configuration
@@ -54,15 +57,15 @@ class Configuration
     public static function parseIniFile($filePath)
     {
         if (!file_exists($filePath)) {
-            throw new \InvalidArgumentException(sprintf('File "%s" not exist', $filePath));
+            throw new InvalidArgumentException(sprintf('File "%s" not exist', $filePath));
         }
 
         if (!is_readable($filePath)) {
-            throw new \InvalidArgumentException(sprintf('File "%s" is not readable', $filePath));
+            throw new InvalidArgumentException(sprintf('File "%s" is not readable', $filePath));
         }
 
         if (!is_file($filePath)) {
-            throw new \InvalidArgumentException(sprintf('File "%s" is not regular file', $filePath));
+            throw new InvalidArgumentException(sprintf('File "%s" is not regular file', $filePath));
         }
 
         $reader = new Ini();

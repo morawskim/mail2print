@@ -26,6 +26,9 @@ class JobsContainer
         $this->attachmentsError[] = $attachmentError;
     }
 
+    /**
+     * @return AttachmentError[]
+     */
     public function getAttachmentsError()
     {
         return $this->attachmentsError;

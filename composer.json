@@ -14,7 +14,8 @@
     "symfony/console": "v2.6.9",
     "zendframework/zend-mail": "2.5.1",
     "twig/twig": "1.6.5",
-    "zendframework/zend-config": "2.5.1"
+    "zendframework/zend-config": "2.5.1",
+    "monolog/monolog": "1.15.0"
   },
 
   "autoload": {

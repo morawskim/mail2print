@@ -26,6 +26,12 @@ Create log file. Set owner and permission.
     touch /var/log/fetchmail
     chown fetchmail /var/log/fetchmail
     chmod 640 /var/log/fetchmail
+    
+Create log file for mail2print. Set owner and permission.
+
+    touch /var/log/mail2print.log
+    chown fetchmail /var/log/mail2print.log
+    chmod 640 /var/log/mail2print.log
 
 Copy template fetchamilrc to /etc/fetchmailrc
 
@@ -68,6 +74,5 @@ You may need these PHP extensions:
 
 TODO
 ===========================
-* Logging
 * Unit test
 * new filters (white and blacklist email address)

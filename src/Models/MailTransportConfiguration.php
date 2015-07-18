@@ -3,6 +3,7 @@
 namespace mail2print\Models;
 
 
+use mail2print\Exceptions\InvalidArgumentException;
 use Zend\Mail\Transport\Sendmail;
 use Zend\Mail\Transport\Smtp;
 use Zend\Mail\Transport\SmtpOptions;
@@ -30,10 +31,10 @@ class MailTransportConfiguration
                     return $transport;
                     break;
                 default:
-                    throw new \RuntimeException(sprintf('Unknown "%s" transport. Supported only smtp and sendmail.', $options['transport']));
+                    throw new InvalidArgumentException(sprintf('Unknown "%s" transport. Supported only smtp and sendmail.', $options['transport']));
             }
         } else {
-            throw new \RuntimeException(sprintf('Configuration for mail repley must have key transport.'));
+            throw new InvalidArgumentException(sprintf('Configuration for mail repley must have key transport.'));
         }
     }
 }

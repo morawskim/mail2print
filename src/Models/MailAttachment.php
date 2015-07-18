@@ -3,6 +3,8 @@
 namespace mail2print\Models;
 
 
+use mail2print\Exceptions\InvalidArgumentException;
+use mail2print\Exceptions\RuntimeException;
 use Zend\Mail\Header\ContentTransferEncoding;
 use Zend\Mail\Header\GenericHeader;
 use Zend\Mail\Storage\Part;
@@ -70,7 +72,7 @@ class MailAttachment
     public function storeAttachment()
     {
         if (!$this->isSupported()) {
-            throw new \RuntimeException(sprintf("Attachment is not supported and can't be store"));
+            throw new InvalidArgumentException(sprintf("Attachment is not supported and can't be store"));
         }
 
         $part = $this->getPartMessage();
@@ -81,7 +83,7 @@ class MailAttachment
         $tmpfile = tempnam(sys_get_temp_dir(), 'mail2print');
         $result = file_put_contents($tmpfile, $content);
         if (false === $result) {
-            throw new \RuntimeException(sprintf("Can't store attachment"));
+            throw new RuntimeException(sprintf("Can't store attachment"));
         }
 
         return $tmpfile;
@@ -141,7 +143,7 @@ class MailAttachment
                 $content = base64_decode($content);
                 break;
             default:
-                throw new \RuntimeException(sprintf('Attachment encoded unsupported algorithm.'));
+                throw new InvalidArgumentException(sprintf('Attachment encoded unsupported algorithm.'));
         }
         return $content;
     }

@@ -3,6 +3,7 @@
 namespace mail2print\Services;
 
 
+use mail2print\Exceptions\InvalidArgumentException;
 use mail2print\Exceptions\LprException;
 use mail2print\Models\PrintJob;
 
@@ -13,11 +14,11 @@ class PrintService
     public function setLprPath($path)
     {
         if (!is_file($path)) {
-            throw new \RuntimeException('Lpr bin "%s" is not file.', $path);
+            throw new InvalidArgumentException('Lpr bin "%s" is not file.', $path);
         }
 
         if (!is_executable($path)) {
-            throw new \RuntimeException('Lpr bin "%s" is not executable', $path);
+            throw new InvalidArgumentException('Lpr bin "%s" is not executable', $path);
         }
 
         $this->lprPath = $path;

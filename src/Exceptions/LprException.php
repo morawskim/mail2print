@@ -5,7 +5,7 @@ namespace mail2print\Exceptions;
 
 use Exception;
 
-class LprException extends \RuntimeException
+class LprException extends RuntimeException
 {
     protected $stderrOutput = '';
 
