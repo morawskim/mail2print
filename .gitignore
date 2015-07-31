@@ -1,5 +1,6 @@
 composer.phar
 phing-latest.phar
+mail2print.log
 composer.lock
 vendor/
 .idea/

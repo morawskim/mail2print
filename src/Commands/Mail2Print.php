@@ -23,6 +23,11 @@ class Mail2Print extends Command
     /** @var  Logger */
     protected $logger;
 
+    /**
+     * @var null|Configuration
+     */
+    protected $config;
+
     protected function configure()
     {
         $this
@@ -42,19 +47,30 @@ class Mail2Print extends Command
         $this->logger = $loggerInterface;
     }
 
+    public function setConfiguration(Configuration $configuration)
+    {
+        $this->config = $configuration;
+    }
+
+    public function getConfiguration()
+    {
+        return $this->config;
+    }
+
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
+        $configPath = $input->getOption('file');
+        $this->setConfiguration(Configuration::parseIniFile($configPath));
+
+
         $logPath = $input->getOption('log');
-        $this->logger->pushHandler(new StreamHandler($logPath, Logger::DEBUG));
+        $this->logger->pushHandler(new StreamHandler($logPath, $this->getConfiguration()->getLogLevel()));
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $logger = $this->getLogger();
-
-        $configPath = $configFile = $input->getOption('file');
-        $logger->debug(sprintf('Using config file "%s".', $configPath));
-        $config = Configuration::parseIniFile($configPath);
+        $logger->debug(sprintf('Using config file "%s".', $input->getOption('file')));
 
         $messages = Mail::fromStdIn();
 
@@ -82,7 +98,7 @@ class Mail2Print extends Command
         }
 
         $printService = new PrintService();
-        $printService->setLprPath($config->getLprBin());
+        $printService->setLprPath($this->getConfiguration()->getLprBin());
         foreach ($filtered as $f) {
             $printService->sendToPrinter($f);
             $logger->info(sprintf('Add print job "%s" to queue.', $f->getAttachmentName()));
@@ -96,8 +112,8 @@ class Mail2Print extends Command
         $mail = new \mail2print\Models\Reply\Mail();
         $mail->setTo($mailService->getFromMail());
         $mail->setSubject('Re: ' . $mailService->getSubject());
-        $mail->setFrom($config->getMailFrom());
-        $mail->setTransport(MailTransportConfiguration::factory($config->getMailConfig()));
+        $mail->setFrom($this->getConfiguration()->getMailFrom());
+        $mail->setTransport(MailTransportConfiguration::factory($this->getConfiguration()->getMailConfig()));
         $mail->send($content);
 
         $logger->info(sprintf('Send report to "%s".', $mailService->getFromMail()));

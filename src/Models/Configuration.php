@@ -5,6 +5,7 @@ namespace mail2print\Models;
 
 use mail2print\Exceptions\InvalidArgumentException;
 use mail2print\Exceptions\RuntimeException;
+use Psr\Log\LogLevel;
 use Zend\Config\Exception\ExceptionInterface;
 use Zend\Config\Reader\Ini;
 
@@ -15,6 +16,9 @@ class Configuration
 
     /** @var  array */
     protected $mailConfig;
+
+    /** @var  string */
+    protected $logLevel;
 
     /**
      * @return string
@@ -30,6 +34,28 @@ class Configuration
     public function setLprBin($lprBin)
     {
         $this->lprBin = $lprBin;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogLevel()
+    {
+        return $this->logLevel;
+    }
+
+    /**
+     * @see Logger::toMonologLevel
+     * @param string $logLevel
+     */
+    public function setLogLevel($logLevel)
+    {
+        $logLevel = strval($logLevel);
+        if (defined("LogLevel::$logLevel")) {
+            $this->logLevel = $logLevel;
+        } else {
+            throw new InvalidArgumentException(sprintf('Log level "%s" is not supported', $logLevel));
+        }
     }
 
     /**
@@ -86,6 +112,12 @@ class Configuration
 
         if (!empty($array['lpr_bin'])) {
             $obj->setLprBin($array['lpr_bin']);
+        }
+
+        if (!empty($array['log_level'])) {
+            $obj->setLogLevel($array['log_level']);
+        } else {
+            $obj->setLogLevel('WARNING');
         }
 
         if (!empty($array['mail'])) {
