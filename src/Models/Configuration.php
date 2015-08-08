@@ -51,7 +51,7 @@ class Configuration
     public function setLogLevel($logLevel)
     {
         $logLevel = strval($logLevel);
-        if (defined("LogLevel::$logLevel")) {
+        if (defined("Psr\\Log\\LogLevel::$logLevel")) {
             $this->logLevel = $logLevel;
         } else {
             throw new InvalidArgumentException(sprintf('Log level "%s" is not supported', $logLevel));
