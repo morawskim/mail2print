@@ -95,7 +95,11 @@ class Mail2Print extends Command
         //reply to sender with report
         $mail = new \mail2print\Models\Reply\Mail();
         $mail->setTo($mailService->getFromMail());
-        $mail->setSubject('Re: ' . $mailService->getSubject());
+        if (strpos($mailService->getSubject(), 'Re:') === 0) {
+            $mail->setSubject($mailService->getSubject());
+        } else {
+            $mail->setSubject('Re: ' . $mailService->getSubject());
+        }
         $mail->setFrom($config->getMailFrom());
         $mail->setTransport(MailTransportConfiguration::factory($config->getMailConfig()));
         $mail->send($content);
