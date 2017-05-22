@@ -1,6 +1,5 @@
 composer.phar
 phing-latest.phar
-composer.lock
 vendor/
 .idea/
 build/mail2print.deb
