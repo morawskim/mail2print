@@ -5,6 +5,9 @@ Instalation (Raspbian)
 ===========================
 Download (or build) mail2print phar archive
 
+    #install mail2print dependiencies
+    composer install
+
     #build phar
     /usr/bin/php /path/to/phing-latest.phar -f /path/to/mail2printRepo/build/build.xml phar
 
